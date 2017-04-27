@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "NodeJS and Typescript starter kit",
   "scripts": {
-    "start": "NODE_ENV=dev node dist/src/index.js",
+    "start": "NODE_ENV=dev node dist/index.js",
     "build": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
     "lint": "tslint -t stylish 'src/**/*.ts'",

@@ -3,7 +3,7 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
 
-class App {
+export class App {
   public express: express.Express;
 
   constructor(env: string) {
@@ -45,6 +45,12 @@ class App {
     });
 
     // this.express.use('/', HomeController);
+
+    // Catch 404 and forward to error handler
+    this.express.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      err.status = 404;
+      next(err)
+    });
   }
 
   /**
@@ -78,5 +84,3 @@ class App {
     });
   }
 }
-
-export default App;
