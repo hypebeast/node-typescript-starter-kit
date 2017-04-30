@@ -1,9 +1,11 @@
-export function info(message: string): void {
-  // tslint:disable-next-line:no-console
-  console.log(message);
-}
+import * as winston from 'winston';
 
-export function error(message: string): void {
-  // tslint:disable-next-line:no-console
-  console.error(message);
-}
+const isDev = process.env.NODE_ENV === 'development';
+
+const logger = new (winston.Logger)({
+  transports: [
+      new (winston.transports.Console)(isDev ? {colorize: 'all'} : {})
+    ]
+});
+
+export {logger};

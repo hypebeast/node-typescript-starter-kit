@@ -1,10 +1,10 @@
 import * as http from 'http';
 
-import { App } from './App';
-import * as Log from './lib/logger';
+import {App} from './App';
+import {logger as log} from './lib/logger';
 
 const port: number|string|boolean = normalizePort(process.env.PORT || 3000);
-const env: string = process.env.NODE_ENV || 'dev';
+const env: string = process.env.NODE_ENV || 'development';
 const app: App = new App(env);
 
 const server: http.Server = http.createServer(app.express);
@@ -38,7 +38,7 @@ function normalizePort(val: number|string): number|string|boolean {
  *
  * @param {any} err
  */
-function onError(err: any) {
+function onError(err: {syscall: string, code: string}): void {
   if (err.syscall !== 'listen') {
     throw err;
   }
@@ -49,12 +49,12 @@ function onError(err: any) {
 
   switch (err.code) {
     case 'EACCES':
-      Log.error(`${bind} requires elevated privileges`);
+      log.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
 
     case 'EADDRINUSE':
-      Log.error(`${bind} is already in use`);
+      log.error(`${bind} is already in use`);
       process.exit(1);
       break;
 
@@ -67,11 +67,11 @@ function onError(err: any) {
  * Event listener for HTTP server "listening" event.
  *
  */
-function onListening() {
-  let addr = server.address();
+function onListening(): void {
+  let addr: string|{port: number} = server.address();
   let bind: string = typeof addr === 'string'
     ? `pipe ${addr}`
-    : `port ${addr.port}`;
+    : `${addr.port}`;
 
-  Log.info(`Listening on ${bind}`);
+  log.info(`Listening on ${bind}`);
 }
