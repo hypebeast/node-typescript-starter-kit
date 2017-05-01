@@ -1,8 +1,8 @@
 import {Request, Response, Router} from 'express';
 
 export abstract class BaseController {
-  title: string
-  router: Router
+  public router: Router;
+  protected title: string;
 
   /**
    * Creates an instance of BaseController.
@@ -14,16 +14,6 @@ export abstract class BaseController {
     this.routes();
     this.title = 'node-typescript-starter-kit';
   }
-
-  /**
-   * Setup routes for the controller.
-   *
-   * @protected
-   * @abstract
-   *
-   * @memberof BaseController
-   */
-  protected abstract routes(): void;
 
   /**
    * Render a page.
@@ -40,4 +30,14 @@ export abstract class BaseController {
 
     res.render(view, options);
   }
+
+  /**
+   * Setup routes for the controller.
+   *
+   * @protected
+   * @abstract
+   *
+   * @memberof BaseController
+   */
+  protected abstract routes(): void;
 }

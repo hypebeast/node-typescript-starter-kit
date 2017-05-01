@@ -1,6 +1,6 @@
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as logger from 'morgan';
-import * as bodyParser from 'body-parser';
 import * as path from 'path';
 
 import {HomeController} from './controllers/HomeController';
@@ -38,10 +38,10 @@ export class App {
     this.express.use(bodyParser.urlencoded({ extended: false }));
 
     // Configure pug
-    this.express.set("views", path.join(__dirname, "views"));
-    this.express.set("view engine", "pug");
+    this.express.set('views', path.join(__dirname, 'views'));
+    this.express.set('view engine', 'pug');
 
-    // Server static files from "public"
+    // Serve static files from "public"
     this.express.use(express.static('public'));
   }
 
@@ -53,10 +53,6 @@ export class App {
    * @memberOf App
    */
   private routes(): void {
-    // this.express.use('/', (req, res) => {
-    //   res.send("Hello, World!");
-    // });
-
     this.express.use('/', this.homeController.router);
   }
 
@@ -70,23 +66,25 @@ export class App {
    */
   private errorHandlers(isDev: boolean): void {
     if (isDev) {
+      // tslint:disable-next-line:no-any
       this.express.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
         log.error(error.stack);
-        res.status(error['status'] || 500);
+        res.status(error.status || 500);
         res.send({
           message: error.message,
-          error
+          error,
         });
       });
     }
 
     // Show no stack traces in production
+    // tslint:disable-next-line:no-any
     this.express.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
         log.error(error.stack);
-        res.status(error['status'] || 500);
+        res.status(error.status || 500);
         res.send({
           message: error.message,
-          error: {}
+          error: {},
         });
 
         return null;

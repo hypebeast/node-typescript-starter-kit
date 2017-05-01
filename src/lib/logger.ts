@@ -1,11 +1,11 @@
 import * as winston from 'winston';
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev: boolean = process.env.NODE_ENV === 'development';
 
-const logger = new (winston.Logger)({
+const logger: winston.LoggerInstance = new (winston.Logger)({
   transports: [
-      new (winston.transports.Console)(isDev ? {colorize: 'all'} : {})
-    ]
+      new (winston.transports.Console)(isDev ? {colorize: 'all'} : {}),
+    ],
 });
 
 export {logger};

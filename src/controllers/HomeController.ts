@@ -18,12 +18,6 @@ export class HomeController extends BaseController {
     super();
   }
 
-  protected routes(): void {
-    this.router.get('/', (req, res, next) => {
-      new HomeController().home(req, res, next);
-    });
-  }
-
   /**
    * Home page controller.
    *
@@ -36,5 +30,11 @@ export class HomeController extends BaseController {
   public home(req: Request, res: Response, next: NextFunction): void {
     this.title = 'Home';
     this.render(req, res, 'home');
+  }
+
+  protected routes(): void {
+    this.router.get('/', (req, res, next) => {
+      new HomeController().home(req, res, next);
+    });
   }
 }
