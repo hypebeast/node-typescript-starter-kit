@@ -2,7 +2,7 @@
   "mongo": {
     "host": "localhost",
     "port": "27017",
-    "dbName": "node_typescript",
+    "dbName": "node_typescript_starter_kit",
     "user": "",
     "password": ""
   }

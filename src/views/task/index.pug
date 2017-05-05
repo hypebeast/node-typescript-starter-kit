@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  section.hero.is-primary
+    .hero-body
+      .container
+        h1.title Tasks
+
+  section.section
+    .container
+      .columns
+        .column
+          form.level(action="/task", method="post")
+            .level-item
+              .field.has-addons
+                p.control
+                  input.input.is-large(type="text", name="name", placeholder="New Task")
+                p.control
+                  button.button.is-large(type="submit") Add
+
+      #tasks-container.columns
+        .column
+          each task in tasks
+            .box.level
+              .level-left
+                p.level-item= task.name
+              .level-right
+                button.button.level-item.is-primary Complete
+                button.button.level-item.is-success Edit

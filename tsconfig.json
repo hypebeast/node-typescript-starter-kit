@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2015",
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
@@ -9,7 +9,13 @@
     "importHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "lib": [
+      "es2015",
+      "es2016",
+      "es5",
+      "es6"
+    ]
   },
   "include": [
     "src/**/*",

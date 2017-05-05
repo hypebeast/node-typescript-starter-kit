@@ -6,9 +6,9 @@ import { logger as log } from './logger';
 export function init(): void {
   const databaseConfig: IMongoConfiguration = getMongoConfig();
   const credentials: string = (databaseConfig.user && databaseConfig.password)
-                        ? `${databaseConfig.user}:${databaseConfig.password}`
+                        ? `${databaseConfig.user}:${databaseConfig.password}@`
                         : '';
-  const connectionString: string = `mongodb://${credentials}@${databaseConfig.host}/${databaseConfig.dbName}`;
+  const connectionString: string = `mongodb://${credentials}${databaseConfig.host}/${databaseConfig.dbName}`;
 
   // tslint:disable-next-line:no-any
   (<any>mongoose).Promise = Promise;

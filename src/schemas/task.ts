@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export interface ITask extends mongoose.Document {
+export interface IMongoTask extends mongoose.Document {
   name: string;
   description: string;
   completed: boolean;
@@ -8,13 +8,17 @@ export interface ITask extends mongoose.Document {
   updatedAt: Date;
 }
 
-export const taskSchema: mongoose.Schema = new mongoose.Schema({
+const taskSchema: mongoose.Schema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true },
+  description: String,
   completed: Boolean,
 }, {
   timestamps: true,
 });
 
-// tslint:disable-next-line:variable-name
-export const TaskSchemaModel: mongoose.Model<ITask> = mongoose.model<ITask>('Task', taskSchema);
+// taskSchema.pre('save', function(next) {
+//   this.updatedAt = new Date();
+//   next();
+// });
+
+export const taskModel: mongoose.Model<IMongoTask> = mongoose.model<IMongoTask>('Task', taskSchema);

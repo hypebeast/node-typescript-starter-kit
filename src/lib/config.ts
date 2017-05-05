@@ -9,5 +9,5 @@ export interface IMongoConfiguration {
 }
 
 export function getMongoConfig(): IMongoConfiguration {
-  return config.get('mongo');
+  return <IMongoConfiguration>config.get('mongo');
 }

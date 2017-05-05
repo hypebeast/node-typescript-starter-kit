@@ -1,0 +1,16 @@
+body {
+  height: 100%;
+}
+
+.main-container {
+  height: 100%;
+  background: #E8E8E8;
+}
+
+#navbar {
+  background-color: #363636;
+}
+
+#navbar a.nav-item {
+  color: #FFFFFF;
+}

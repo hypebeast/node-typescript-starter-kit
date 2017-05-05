@@ -1,7 +1,7 @@
 import * as http from 'http';
 
-import {App} from './App';
-import {logger as log} from './lib/logger';
+import { App } from './App';
+import { logger as log } from './lib/logger';
 
 const port: number|string|boolean = normalizePort(process.env.PORT || 3000);
 const env: string = process.env.NODE_ENV || 'development';

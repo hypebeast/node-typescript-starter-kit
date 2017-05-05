@@ -3,19 +3,27 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as path from 'path';
 
-import {HomeController} from './controllers/HomeController';
-import {logger as log} from './lib/logger';
+import { HomeController } from './controllers/HomeController';
+import { TaskController } from './controllers/TaskController';
+import * as database from './lib/database';
+import { logger as log } from './lib/logger';
 
 export class App {
   public express: express.Application;
 
   private homeController: HomeController;
+  private taskController: TaskController;
 
   constructor(env: string) {
     let isDev: boolean = (env === 'development');
 
+    // Initialize database
+    database.init();
+
+    // Create express app and create all controllers
     this.express = express();
     this.homeController = new HomeController();
+    this.taskController = new TaskController();
 
     this.middleware(isDev);
     this.routes();
@@ -42,7 +50,7 @@ export class App {
     this.express.set('view engine', 'pug');
 
     // Serve static files from "public"
-    this.express.use(express.static('public'));
+    this.express.use('/static', express.static(path.join(__dirname, 'public')));
   }
 
   /**
@@ -54,6 +62,7 @@ export class App {
    */
   private routes(): void {
     this.express.use('/', this.homeController.router);
+    this.express.use('/task', this.taskController.router);
   }
 
   /**
