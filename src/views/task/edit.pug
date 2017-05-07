@@ -4,34 +4,24 @@ block content
   section.hero.is-primary
     .hero-body
       .container
-        h1.title Edit List
+        h1.title Edit Task
 
   section.section
     .container
       .columns
         .column
-          form.level(action="/task", method="post")
-            .level-item
-              .field.has-addons
-                p.control
-                  input.input.is-large(type="text", name="name", placeholder="New Task")
-                p.control
-                  button.button.is-primary.is-large(type="submit")
-                    span.icon
-                      i.fa.fa-plus
-                    span Add Task
-
-
-      #tasks-container.columns
-        .column
-          each task in tasks
-            .box.level
-              .level-left
-                .form(action="/task/" + task.id + "/delete", method="post")
-                  .field
-                    p.control.checkbox_task_completed
-                      label.checkbox
-                        input(type="checkbox")
-                span.level-item= task.name
-              .level-right
-                a.button.level-item.is-success(href="/task/" + task.id + "/edit") Edit
+          form(action="/task/" + task.id + "/edit", method="post")
+            .field
+              label.label Description
+              p.control
+                input.input(name="name", value=task.name)
+            .field
+              p.control
+                label.checkbox
+                  input(type="checkbox", name="completed", value=task.completed)
+                  = "Done"
+            .field.is-grouped
+              p.control
+                button.button.is-primary Save
+              p.control
+                button.button.is-link(href="/task") Cancel

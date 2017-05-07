@@ -49,7 +49,20 @@ export class Task implements ITask {
       });
   }
 
-  public static FIND_BY_ID(): Promise<ITask> {
-    throw new Error('not implemented');
+  public static FIND_BY_ID(id: string): Promise<ITask> {
+    return taskModel.findOne({ _id: id})
+      .then(task => new Task(task));
+  }
+
+  public static UPDATE(task: ITask): Promise<ITask> {
+    return taskModel.findByIdAndUpdate(task.id, task)
+      .then(mongoTask => new Task(mongoTask));
+  }
+
+  public static REMOVE(id: string): Promise<void> {
+    return taskModel.remove({_id: id})
+      .then((result) => {
+        return;
+      });
   }
 }

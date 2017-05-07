@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Task } from '../models/task';
+import { Task, ITask } from '../models/task';
 import { IMongoTask } from '../schemas/task';
 import { BaseController } from './BaseController';
 
@@ -47,12 +47,30 @@ export class TaskController extends BaseController {
       .catch(next);
   }
 
-  public update(req: Request, res: Response, next: NextFunction): void {
-    throw new Error('Method not implemented.');
+  public getEdit(req: Request, res: Response, next: NextFunction): void {
+    const id: string = req.params.id;
+
+    Task.FIND_BY_ID(id)
+      .then(task => this.render(req, res, 'task/edit', { task }))
+      .catch(next);
+  }
+
+  public postEdit(req: Request, res: Response, next: NextFunction): void {
+    const id: string = req.params.id;
+    const task: ITask = <ITask>req.body;
+    task.id = id;
+
+    Task.UPDATE(task)
+      .then(() => res.redirect('/task'))
+      .catch(next);
   }
 
   public remove(req: Request, res: Response, next: NextFunction): void {
-    throw new Error('Method not implemented.');
+    const id: string = req.params.id;
+
+    Task.REMOVE(id)
+      .then(() => res.redirect('/task'))
+      .catch(next);
   }
 
   protected routes(): void {
@@ -64,11 +82,15 @@ export class TaskController extends BaseController {
       new TaskController().create(req, res, next);
     });
 
-    this.router.put('/:id', (req, res, next) => {
-      new TaskController().update(req, res, next);
+    this.router.get('/:id/edit', (req, res, next) => {
+      new TaskController().getEdit(req, res, next);
     });
 
-    this.router.delete('/:id', (req, res, next) => {
+    this.router.post('/:id/edit', (req, res, next) => {
+      new TaskController().postEdit(req, res, next);
+    });
+
+    this.router.post('/:id/delete', (req, res, next) => {
       new TaskController().remove(req, res, next);
     });
   }
