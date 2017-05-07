@@ -39,10 +39,11 @@ export class TaskController extends BaseController {
    * @memberof TaskController
    */
   public create(req: Request, res: Response, next: NextFunction): void {
-    const task: IMongoTask = <IMongoTask>req.body;
+    const mongoTask: IMongoTask = <IMongoTask>req.body;
 
-    Promise.all([Task.CREATE(task), Task.FIND_ALL()])
-      .then(result => this.render(req, res, 'task/index', { tasks: result[1] }))
+    Task.CREATE(mongoTask)
+      .then(task => Promise.all([Task.FIND_ALL(), task]))
+      .then(([tasks]) => this.render(req, res, 'task/index', { tasks }))
       .catch(next);
   }
 

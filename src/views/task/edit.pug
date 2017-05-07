@@ -4,8 +4,7 @@ block content
   section.hero.is-primary
     .hero-body
       .container
-        h1.title Task List
-        h2.subtitle Manage your tasks
+        h1.title Edit List
 
   section.section
     .container
@@ -35,10 +34,4 @@ block content
                         input(type="checkbox")
                 span.level-item= task.name
               .level-right
-                .form.level-item(action="/task/" + task.id + "/delete", method="post")
-                  p.control
-                    button.button.is-danger
-                      span.icon
-                        i.fa.fa-trash
-                      span Delete
                 a.button.level-item.is-success(href="/task/" + task.id + "/edit") Edit

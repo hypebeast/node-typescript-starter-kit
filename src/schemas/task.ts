@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export interface IMongoTask extends mongoose.Document {
+  _id: string;
   name: string;
   description: string;
   completed: boolean;

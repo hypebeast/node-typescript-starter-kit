@@ -1,6 +1,7 @@
 import { IMongoTask, taskModel } from '../schemas/task';
 
 export interface ITask {
+  id: string;
   name: string;
   completed: boolean;
   createdAt: Date;
@@ -12,6 +13,10 @@ export class Task implements ITask {
 
   constructor(task: IMongoTask) {
     this.document = task;
+  }
+
+  get id(): string {
+    return this.document._id;
   }
 
   get name(): string {

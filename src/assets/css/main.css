@@ -14,3 +14,7 @@ body {
 #navbar a.nav-item {
   color: #FFFFFF;
 }
+
+.checkbox_task_completed {
+  padding-left: 15px;
+}
