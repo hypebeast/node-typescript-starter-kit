@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Task, ITask } from '../models/task';
+import { ITask, Task } from '../models/task';
 import { IMongoTask } from '../schemas/task';
 import { BaseController } from './BaseController';
 
@@ -47,6 +47,15 @@ export class TaskController extends BaseController {
       .catch(next);
   }
 
+  /**
+   *
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   *
+   * @memberof TaskController
+   */
   public getEdit(req: Request, res: Response, next: NextFunction): void {
     const id: string = req.params.id;
 
@@ -55,6 +64,15 @@ export class TaskController extends BaseController {
       .catch(next);
   }
 
+  /**
+   *
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   *
+   * @memberof TaskController
+   */
   public postEdit(req: Request, res: Response, next: NextFunction): void {
     const id: string = req.params.id;
     const task: ITask = <ITask>req.body;
@@ -65,6 +83,15 @@ export class TaskController extends BaseController {
       .catch(next);
   }
 
+  /**
+   *
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   *
+   * @memberof TaskController
+   */
   public remove(req: Request, res: Response, next: NextFunction): void {
     const id: string = req.params.id;
 
